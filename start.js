@@ -1,7 +1,7 @@
 /*
  * YUKIKAZE KAI
  * a beaver for various things
- * Author: Eternith
+ * Author: Eternith, Brandon
  */
 
 var Eris = require('eris');
@@ -11,6 +11,7 @@ var schedule = require("node-schedule");
 var moment = require("moment");
 var jsonfile = require("jsonfile");
 
+
 var http = require("http");
 var env = process.env;
 
@@ -18,11 +19,16 @@ var env = process.env;
 var filePath = "./db.json";
 if (process.env.OPENSHIFT_DATA_DIR != undefined)
     filePath = process.env.OPENSHIFT_DATA_DIR + "db.json";
+else
+    console.log("local");
 
 var db = jsonfile.readFileSync(filePath);
 console.log(getTimestamp() + " Loaded db from " + filePath);
 
-var beaver = new Eris(db.token);
+
+//The bot's token
+var beaver = new Eris(db.token.botToken);
+//console.log(db.token.botToken);
 
 // custom modules
 var kancolle = require("./kancolle.js")(beaver, db);
